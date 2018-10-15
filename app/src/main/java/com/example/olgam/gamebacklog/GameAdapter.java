@@ -16,12 +16,18 @@ public class GameAdapter extends RecyclerView.Adapter <GameAdapter.MyViewHolder>
     //fields
     private ArrayList<Game> games;
     Context context;
+    final private GameClickListener mGameClickListener;
 
-    public GameAdapter(MainActivity mainActivity, ArrayList<Game> mGames) {
-        this.games = mGames;
+    public interface GameClickListener {
+        void gameOnClick (int i);
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public GameAdapter(MainActivity mainActivity, ArrayList<Game> mGames, GameClickListener mGameClickListener) {
+        this.games = mGames;
+        this.mGameClickListener = mGameClickListener;
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CardView cv;
         public TextView title;
         public TextView platform;
@@ -36,6 +42,12 @@ public class GameAdapter extends RecyclerView.Adapter <GameAdapter.MyViewHolder>
             platform = itemView.findViewById(R.id.platform);
             date = itemView.findViewById(R.id.dateView);
             status = itemView.findViewById(R.id.status);
+        }
+
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            mGameClickListener.gameOnClick(clickedPosition);
+
         }
     }
 

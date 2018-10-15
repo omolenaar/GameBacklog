@@ -1,11 +1,25 @@
 package com.example.olgam.gamebacklog;
 
-class Game {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+class Game implements Parcelable {
     //fields
     String title;
     String notes;
     String date;
     String platform;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+    }
+
     private enum status {
         WANTED ("Want to play"),
         PLAY ("Playing"),
