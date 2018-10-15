@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
@@ -93,9 +95,8 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         }
     }
 
-    @Override
     public void gameOnClick (int i) {
-        //Toast.makeText(this, "Test "+i, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Test "+i, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
         mModifyPosition = i;
         intent.putExtra(EXTRA_GAME, mGames.get(i));
@@ -149,5 +150,4 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         Game newGame = new Game(newTitle,newNotes, newDate, newPlatform);
         mGames.add(newGame);
     }
-
 }

@@ -7,11 +7,14 @@
     android:layout_marginTop="8dp"
     android:background="@android:color/black"
     android:padding="8dp"
-    tools:context="com.example.olgam.myapplication.com.example.olgam.gamebacklog.MainActivity">
+    tools:context="com.example.olgam.gamebacklog.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
         android:background="@android:color/black">
 
 
@@ -21,6 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +34,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:orientation="vertical">
 
                 <TextView

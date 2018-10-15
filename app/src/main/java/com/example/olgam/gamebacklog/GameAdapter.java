@@ -22,7 +22,8 @@ public class GameAdapter extends RecyclerView.Adapter <GameAdapter.MyViewHolder>
         void gameOnClick (int i);
     }
 
-    public GameAdapter(MainActivity mainActivity, ArrayList<Game> mGames, GameClickListener mGameClickListener) {
+    public GameAdapter(Context context, ArrayList<Game> mGames, GameClickListener mGameClickListener) {
+        this.context = context;
         this.games = mGames;
         this.mGameClickListener = mGameClickListener;
     }
@@ -42,12 +43,13 @@ public class GameAdapter extends RecyclerView.Adapter <GameAdapter.MyViewHolder>
             platform = itemView.findViewById(R.id.platform);
             date = itemView.findViewById(R.id.dateView);
             status = itemView.findViewById(R.id.status);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
         public void onClick(View view) {
             int clickedPosition = getAdapterPosition();
             mGameClickListener.gameOnClick(clickedPosition);
-
         }
     }
 

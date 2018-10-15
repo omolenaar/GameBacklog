@@ -30,12 +30,18 @@ public class UpdateActivity extends AppCompatActivity {
         platformInput = findViewById(R.id.editPlatform);
         notesInput = findViewById(R.id.editNotes);
 
+        final Game updateGame = getIntent().getParcelableExtra("Game");
+
+        //get text so that it can be displayed (set) and possibly edited
+        titleInput.setText(updateGame.getTitle());
+        dateInput.setText(updateGame.getDate());
+        platformInput.setText(updateGame.getPlatform());
+        notesInput.setText(updateGame.getNotes());
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
 
                 String newTitle = titleInput.getText().toString();
                 String newDate = dateInput.getText().toString();
