@@ -7,13 +7,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-
+import android.widget.TextView;
 
 public class UpdateActivity extends AppCompatActivity {
 
-    EditText titleInput;
+    EditText titleEditText;
     EditText dateInput;
     EditText platformInput;
     EditText notesInput;
@@ -25,25 +28,33 @@ public class UpdateActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        titleInput = findViewById(R.id.editTitle);
+
+        //get text so that it can be displayed and possibly edited
+        Bundle bundle = getIntent().getExtras();
+        String oldTitle = bundle.getString("Title");
+        String oldDate = bundle.getString("Date");
+        String oldPlatform = bundle.getString("Platform");
+        String oldNotes = bundle.getString("Notes");
+
+        //initialize the local vars
+        //titleInput = (EditText) findViewById(R.id.editTitle);
+        titleEditText = findViewById(R.id.editTitle);
         dateInput = findViewById(R.id.editDate);
         platformInput = findViewById(R.id.editPlatform);
         notesInput = findViewById(R.id.editNotes);
 
-        final Game updateGame = getIntent().getParcelableExtra("Game");
-
-        //get text so that it can be displayed (set) and possibly edited
-        titleInput.setText(updateGame.getTitle());
-        dateInput.setText(updateGame.getDate());
-        platformInput.setText(updateGame.getPlatform());
-        notesInput.setText(updateGame.getNotes());
+        //set text in EditText boxes
+        titleEditText.setText(oldTitle);
+        dateInput.setText(oldDate);
+        platformInput.setText(oldPlatform);
+        notesInput.setText(oldNotes);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String newTitle = titleInput.getText().toString();
+                String newTitle = titleEditText.getText().toString();
                 String newDate = dateInput.getText().toString();
                 String newPlatform = platformInput.getText().toString();
                 String newNotes = notesInput.getText().toString();

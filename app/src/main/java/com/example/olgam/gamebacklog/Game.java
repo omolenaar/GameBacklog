@@ -1,24 +1,25 @@
 package com.example.olgam.gamebacklog;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
-class Game implements Parcelable {
-    //fields
-    String title;
-    String notes;
-    String date;
-    String platform;
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+@Entity(tableName = "game")
+class Game {
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
 
-    }
+    @ColumnInfo(name = "gametitle")
+    private String title;
+    @ColumnInfo(name = "gamedate")
+    private String date;
+    @ColumnInfo(name = "gameplatform")
+    private String platform;
+    @ColumnInfo(name = "gamenotes")
+    private String notes;
+
 
     private enum status {
         WANTED ("Want to play"),
@@ -30,19 +31,20 @@ class Game implements Parcelable {
         }
     }
 
-    public Game(String title, String notes, String date, String status) {
+
+    public Game(String title, String date, String platform, String notes) {
         this.title = title;
-        this.notes = notes;
         this.date = date;
         this.platform = platform;
+        this.notes = notes;
     }
 
-    public String getPlatform() {
-        return platform;
+    public Long getId() {
+        return id;
     }
 
-    public void setPlatform(String platform) {
-        this.platform = platform;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -53,20 +55,28 @@ class Game implements Parcelable {
         this.title = title;
     }
 
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
 }

@@ -43,6 +43,7 @@ public class AddGame extends AppCompatActivity {
                 final String newNotesString = newNotes.getText().toString();
                 final String newDateString = newDate.getText().toString();
                 //TODO: Status
+
                 Bundle extras = new Bundle();
                 extras.putString("Title", newTitleString);
                 extras.putString("Platform", newPlatformString);

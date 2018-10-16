@@ -19,7 +19,7 @@ public class GameAdapter extends RecyclerView.Adapter <GameAdapter.MyViewHolder>
     final private GameClickListener mGameClickListener;
 
     public interface GameClickListener {
-        void gameOnClick (int i);
+        void gameOnClick(int i);
     }
 
     public GameAdapter(Context context, ArrayList<Game> mGames, GameClickListener mGameClickListener) {
@@ -28,7 +28,7 @@ public class GameAdapter extends RecyclerView.Adapter <GameAdapter.MyViewHolder>
         this.mGameClickListener = mGameClickListener;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CardView cv;
         public TextView title;
         public TextView platform;
@@ -64,13 +64,21 @@ public class GameAdapter extends RecyclerView.Adapter <GameAdapter.MyViewHolder>
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder viewHolder, int i) {
         Game game = games.get(i);
-        viewHolder.title.setText(games.get(i).title);
-        viewHolder.platform.setText(games.get(i).date);
+        viewHolder.title.setText(games.get(i).getTitle());
+        viewHolder.platform.setText(games.get(i).getDate());
         //viewHolder.date.setText(games.get(i).notes);
     }
 
     @Override
     public int getItemCount() {
         return games.size();
+    }
+
+    public void swapList(ArrayList<Game> newList) {
+        games = newList;
+        if (newList != null) {
+            // Force the RecyclerView to refresh
+            this.notifyDataSetChanged();
+        }
     }
 }

@@ -14,7 +14,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
+import java.util.List;
+
 
 
 import java.util.ArrayList;
@@ -22,6 +25,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements GameAdapter.GameClickListener {
 
     private ArrayList<Game> mGames;
+    private List<Game> mGamesList;
+    private ArrayList<Game> tmp;
+
     private static final String Tag = "TAG";
     private RecyclerView mRecyclerView;
     private GameAdapter mAdapter;
@@ -32,12 +38,16 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
     public static final int UPDATEREQUESTCODE = 2222;
     private int mModifyPosition;
 
+    static AppDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        db = AppDatabase.getInstance(this);
 
         mGames = new ArrayList<Game>();
         mRecyclerView = findViewById(R.id.recyclerView);
@@ -61,6 +71,25 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
             }
         });
 
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int i=3;
+                Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
+                mModifyPosition = i;
+                Log.e(Tag, "mGames title = "+mGames.get(i).getTitle().toString());
+                Game mGame = mGames.get(i);
+                Bundle extras = new Bundle();
+                extras.putString("Title", mGame.getTitle());
+                extras.putString("Date", mGame.getDate());
+                extras.putString("Platform", mGame.getPlatform());
+                extras.putString("Notes", mGame.getNotes());
+                intent.putExtras(extras);
+                startActivityForResult(intent, 3333);
+            }
+        });
+
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -74,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
                 Log.e(Tag, "Swiped detected");
                 //Get the index corresponding to the selected position
                 int position = (viewHolder.getAdapterPosition());
+                db.gameDao().deleteGames(mGames.get(position));
                 mGames.remove(position);
                 mAdapter.notifyItemRangeRemoved(position, 1);
             }
@@ -99,7 +129,14 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         Toast.makeText(this, "Test "+i, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
         mModifyPosition = i;
-        intent.putExtra(EXTRA_GAME, mGames.get(i));
+        Log.e(Tag, "mGames title = "+mGames.get(i).getTitle().toString());
+        Game mGame = mGames.get(i);
+        Bundle extras = new Bundle();
+        extras.putString("Title", mGame.getTitle());
+        extras.putString("Date", mGame.getDate());
+        extras.putString("Platform", mGame.getPlatform());
+        extras.putString("Notes", mGame.getNotes());
+        intent.putExtras(extras);
         startActivityForResult(intent, UPDATEREQUESTCODE);
     }
 
@@ -130,7 +167,11 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
             mAdapter = new GameAdapter(this, mGames, this);
             mRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.notifyDataSetChanged();
+            List<Game> mGamesList = db.gameDao().getAllGames();
+            tmp = new ArrayList<Game>(db.gameDao().getAllGames());
+            ArrayList mGames = tmp;
+            //mAdapter.notifyDataSetChanged();
+            mAdapter.swapList(mGames);
         }
     }
 
@@ -149,5 +190,6 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         String newNotes = data.getStringExtra("Notes");
         Game newGame = new Game(newTitle,newNotes, newDate, newPlatform);
         mGames.add(newGame);
+        db.gameDao().insertGames(newGame);
     }
 }
