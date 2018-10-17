@@ -27,10 +27,10 @@ public class AddGame extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        newTitle = findViewById(R.id.editTitle);
-        newDate = findViewById(R.id.editDate);
-        newPlatform = findViewById(R.id.editPlatform);
-        newNotes = findViewById(R.id.editNotes);
+        newTitle = findViewById(R.id.inputTitle);
+        newDate = findViewById(R.id.inputDate);
+        newPlatform = findViewById(R.id.inputPlatform);
+        newNotes = findViewById(R.id.inputNotes);
         //TODO: Status
 
 

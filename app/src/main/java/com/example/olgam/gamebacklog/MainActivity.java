@@ -75,15 +75,16 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int i=3;
+                int i=2;
                 Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
                 mModifyPosition = i;
                 Log.e(Tag, "mGames title = "+mGames.get(i).getTitle().toString());
                 Game mGame = mGames.get(i);
                 Bundle extras = new Bundle();
                 extras.putString("Title", mGame.getTitle());
-                extras.putString("Date", mGame.getDate());
                 extras.putString("Platform", mGame.getPlatform());
+                extras.putString("Status", mGame.getStatus());
+                extras.putString("Date", mGame.getDate());
                 extras.putString("Notes", mGame.getNotes());
                 intent.putExtras(extras);
                 startActivityForResult(intent, 3333);
@@ -120,10 +121,14 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
                 addGame(data);
                 updateUI();
             }
+        } else if (requestCode == 3333 || requestCode == 2222) {
+            updateGame(data);
+            updateUI();
         } else {
             Log.e(Tag, "ResultCode not OK");
         }
     }
+
 
     public void gameOnClick (int i) {
         Toast.makeText(this, "Test "+i, Toast.LENGTH_SHORT).show();
@@ -133,9 +138,11 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         Game mGame = mGames.get(i);
         Bundle extras = new Bundle();
         extras.putString("Title", mGame.getTitle());
-        extras.putString("Date", mGame.getDate());
         extras.putString("Platform", mGame.getPlatform());
+        extras.putString("Status", mGame.getStatus());
+        extras.putString("Date", mGame.getDate());
         extras.putString("Notes", mGame.getNotes());
+        extras.putInt("Index", i);
         intent.putExtras(extras);
         startActivityForResult(intent, UPDATEREQUESTCODE);
     }
@@ -176,20 +183,33 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
     }
 
     private void initializeData(){
-        mGames.add(new Game("Doom II", "Very old but enjoyable", "31-8-1994", "DROPPED"));
-        mGames.add(new Game("Rogue Squadron", "Best Star Wars game ever", "20-12-1998", "PLAY"));
-        mGames.add(new Game("Fortnight", "No idea", "1-11-2017", "WANTED"));
-        mGames.add(new Game("World of Warcraft", "Addicitve", "5-4-2008", "STALLED"));
+        mGames.add(new Game("Doom II", "PC", "DROPPED", "23-4-1994", "Old and ugly"));
+        mGames.add(new Game("Rogue Squadron", "PC", "PLAYING","20-12-1998", "Best Star Wars game ever"));
+        mGames.add(new Game("Fortnight", "PC, Mobile", "WANTED", "1-11-2017", "No idea"));
+        mGames.add(new Game("World of Warcraft", "PC", "PLAYING", "20-4-2012", "Addicitive"));
     }
 
     private void addGame(Intent data){
         Bundle extras = data.getExtras();
         String newTitle = extras.getString("Title");
-        String newDate = data.getStringExtra("Date");
         String newPlatform = data.getStringExtra("Platform");
+        String newDate = data.getStringExtra("Date");
+        String newStatus = data.getStringExtra("Status");
         String newNotes = data.getStringExtra("Notes");
-        Game newGame = new Game(newTitle,newNotes, newDate, newPlatform);
+        Game newGame = new Game(newTitle, newPlatform, newStatus, newDate, newNotes);
         mGames.add(newGame);
         db.gameDao().insertGames(newGame);
+    }
+    private void updateGame(Intent data) {
+        Bundle extras = data.getExtras();
+        Integer i = data.getIntExtra("Index", 0);
+        Game updateGame = mGames.get(i);
+        updateGame.setTitle(extras.getString("Title"));
+        updateGame.setPlatform(extras.getString("Platform"));
+        updateGame.setStatus(extras.getString("Status"));
+        updateGame.setDate(extras.getString("Date"));
+        updateGame.setNotes(extras.getString("Notes"));
+        db.gameDao().updateGames(updateGame);
+
     }
 }

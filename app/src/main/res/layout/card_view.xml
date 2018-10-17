@@ -49,11 +49,12 @@
                     android:textStyle="italic" />
 
                 <LinearLayout
-                    android:id="@+id/gameInfo"
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
                     android:gravity="fill_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:text="PC"
+                    >
 
                     <TextView
                         android:id="@+id/platform"
@@ -62,7 +63,7 @@
                         android:layout_weight="1"
                         android:gravity="left"
                         android:padding="8dp"
-                        android:text="Platform"
+                        android:text="PC"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent" />
@@ -74,8 +75,8 @@
                         android:layout_gravity="fill_horizontal"
                         android:layout_weight="1"
                         android:padding="8dp"
-                        android:text="Dropped"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        android:text="PLAYING"
+                        app:layout_constraintBottom_toBottomOf="@id/cardView" />
 
                     <TextView
                         android:id="@+id/dateView"

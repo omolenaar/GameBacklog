@@ -22,6 +22,7 @@
         </activity>
         <activity
             android:name=".UpdateActivity"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_update"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

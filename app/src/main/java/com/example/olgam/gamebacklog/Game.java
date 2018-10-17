@@ -13,30 +13,46 @@ class Game {
 
     @ColumnInfo(name = "gametitle")
     private String title;
-    @ColumnInfo(name = "gamedate")
-    private String date;
+
     @ColumnInfo(name = "gameplatform")
     private String platform;
+
+    @ColumnInfo(name = "gamestatus")
+    private String status;
+
+    @ColumnInfo(name = "gamedate")
+    private String date;
+
     @ColumnInfo(name = "gamenotes")
     private String notes;
 
-
-    private enum status {
+/*
+    private enum statusEnum {
         WANTED ("Want to play"),
         PLAY ("Playing"),
         STALLED ("Stalled"),
         DROPPED ("Dropped");
 
-        status(String dropped) {
+        statusString(String dropped) {
         }
+        }
+        */
+
+
+    public Game(String title, String platform, String status, String date, String notes) {
+        this.title = title;
+        this.platform = platform;
+        this.status = status;
+        this.date = date;
+        this.notes = notes;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
-    public Game(String title, String date, String platform, String notes) {
-        this.title = title;
-        this.date = date;
-        this.platform = platform;
-        this.notes = notes;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getId() {
