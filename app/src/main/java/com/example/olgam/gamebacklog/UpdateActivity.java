@@ -46,14 +46,9 @@ public class UpdateActivity extends AppCompatActivity {
         notesInput = findViewById(R.id.editNotes);
 
         //set text in EditText boxes
-        //replace Null values with empty strings
-        //if (oldTitle != null && titleInput != null)
             titleInput.setText(oldTitle);
-        //if (oldDate != null && dateInput != null)
             dateInput.setText(oldDate);
-        //if (oldPlatform != null && platformInput != null)
             platformInput.setText(oldPlatform);
-        //if (oldNotes != null && notesInput != null)
             notesInput.setText(oldNotes);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

@@ -55,11 +55,15 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager((mLayoutManager));
 
-        initializeData();
+        if (mGames.size()==0) {
+            initializeData();
+            for (int j = 0; j < mGames.size(); j++)
+                db.gameDao().insertGames(mGames.get(j));
+        }
 
         final GameAdapter mAdapter = new GameAdapter(this, mGames, this);
         mRecyclerView.setAdapter(mAdapter);
-        Log.e(Tag, "mGamesContents:"+mGames.get(1).getTitle().toString()+mGames.get(2).getTitle().toString()+"mGames size ="+mGames.size());
+        //Log.e(Tag, "mGamesContents:"+mGames.get(1).getTitle().toString()+mGames.get(2).getTitle().toString()+"mGames size ="+mGames.size());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
                 Log.e(Tag, "mGames title = "+mGames.get(i).getTitle().toString());
                 Game mGame = mGames.get(i);
                 Bundle extras = new Bundle();
+                extras.putInt("Index", i);
                 extras.putString("Title", mGame.getTitle());
                 extras.putString("Platform", mGame.getPlatform());
                 extras.putString("Status", mGame.getStatus());
@@ -106,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
                 int position = (viewHolder.getAdapterPosition());
                 db.gameDao().deleteGames(mGames.get(position));
                 mGames.remove(position);
+                mAdapter.notifyItemRemoved(position);
                 mAdapter.notifyItemRangeRemoved(position, 1);
             }
         };
@@ -120,11 +126,11 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
             if (requestCode == ADDREQUESTCODE) {
                 addGame(data);
                 updateUI();
+            } else if (requestCode == 3333 || requestCode == 2222) {
+                updateGame(data);
+                updateUI();
             }
-        } else if (requestCode == 3333 || requestCode == 2222) {
-            updateGame(data);
-            updateUI();
-        } else {
+        }  else {
             Log.e(Tag, "ResultCode not OK");
         }
     }
@@ -139,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         Bundle extras = new Bundle();
         extras.putString("Title", mGame.getTitle());
         extras.putString("Platform", mGame.getPlatform());
-        extras.putString("Status", mGame.getStatus());
+        //extras.putString("Status", mGame.getStatus());
         extras.putString("Date", mGame.getDate());
         extras.putString("Notes", mGame.getNotes());
         extras.putInt("Index", i);
@@ -173,6 +179,8 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
             Log.e(Tag, "mAdapter was null, creating new PortalAdapter");
             mAdapter = new GameAdapter(this, mGames, this);
             mRecyclerView.setAdapter(mAdapter);
+            mAdapter.swapList(mGames);
+
         } else {
             List<Game> mGamesList = db.gameDao().getAllGames();
             tmp = new ArrayList<Game>(db.gameDao().getAllGames());
@@ -183,10 +191,12 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
     }
 
     private void initializeData(){
+
         mGames.add(new Game("Doom II", "PC", "DROPPED", "23-4-1994", "Old and ugly"));
         mGames.add(new Game("Rogue Squadron", "PC", "PLAYING","20-12-1998", "Best Star Wars game ever"));
-        mGames.add(new Game("Fortnight", "PC, Mobile", "WANTED", "1-11-2017", "No idea"));
+        mGames.add(new Game("Fortnite", "PC, Mobile", "WANTED", "1-11-2017", "No idea"));
         mGames.add(new Game("World of Warcraft", "PC", "PLAYING", "20-4-2012", "Addicitive"));
+
     }
 
     private void addGame(Intent data){
@@ -203,13 +213,13 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
     private void updateGame(Intent data) {
         Bundle extras = data.getExtras();
         Integer i = data.getIntExtra("Index", 0);
-        Game updateGame = mGames.get(i);
-        updateGame.setTitle(extras.getString("Title"));
-        updateGame.setPlatform(extras.getString("Platform"));
-        updateGame.setStatus(extras.getString("Status"));
-        updateGame.setDate(extras.getString("Date"));
-        updateGame.setNotes(extras.getString("Notes"));
-        db.gameDao().updateGames(updateGame);
-
+        Game updatedGame = mGames.get(i);
+        updatedGame.setTitle(extras.getString("Title"));
+        updatedGame.setPlatform(extras.getString("Platform"));
+        updatedGame.setStatus(extras.getString("Status"));
+        updatedGame.setDate(extras.getString("Date"));
+        updatedGame.setNotes(extras.getString("Notes"));
+        db.gameDao().updateGames(updatedGame);
+        mGames.set(i, updatedGame);
     }
 }

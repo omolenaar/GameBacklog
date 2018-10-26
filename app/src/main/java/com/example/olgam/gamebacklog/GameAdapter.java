@@ -65,8 +65,9 @@ public class GameAdapter extends RecyclerView.Adapter <GameAdapter.MyViewHolder>
     public void onBindViewHolder(@NonNull MyViewHolder viewHolder, int i) {
         Game game = games.get(i);
         viewHolder.title.setText(games.get(i).getTitle());
-        viewHolder.platform.setText(games.get(i).getDate());
-        //viewHolder.date.setText(games.get(i).notes);
+        viewHolder.platform.setText(games.get(i).getPlatform());
+        viewHolder.status.setText(games.get(i).getStatus());
+        viewHolder.date.setText(games.get(i).getDate());
     }
 
     @Override
