@@ -22,6 +22,12 @@
         <activity
             android:name=".UpdateActivity"
             android:label="@string/title_activity_update"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".AddGame"
+            android:label="@string/title_activity_add_game"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

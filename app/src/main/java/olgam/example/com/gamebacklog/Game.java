@@ -10,7 +10,7 @@ public class Game implements Parcelable {
     private String date;
     private String notes;
 
-    public Game(String title, String platform, String status, String date, String notes) {
+    public Game(String title, String platform, String status, String notes, String date) {
         this.title = title;
         this.platform = platform;
         this.status = status;
