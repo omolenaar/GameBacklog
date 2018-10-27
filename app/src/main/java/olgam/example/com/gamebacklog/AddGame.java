@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AddGame extends AppCompatActivity {
     EditText titleNew;
     EditText platformNew;
@@ -39,6 +43,8 @@ public class AddGame extends AppCompatActivity {
                 updateGame.setPlatform(platformNew.getText().toString());
                 updateGame.setNotes(notesNew.getText().toString());
                 updateGame.setStatus(String.valueOf(statusNew.getSelectedItem()));
+                String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+                updateGame.setDate(date);
 
                 Intent result = new Intent();
                 //Put game object as extra in Intent
