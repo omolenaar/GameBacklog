@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="olgam.example.com.gamebacklog">
+=======
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.olgam.gamebacklog">
+>>>>>>> 345e448ce1afff3d30f3d38d154ee7d101a44127
 
     <application
         android:allowBackup="true"
@@ -21,6 +26,7 @@
         </activity>
         <activity
             android:name=".UpdateActivity"
+<<<<<<< HEAD
             android:label="@string/title_activity_update"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme.NoActionBar"></activity>
@@ -29,6 +35,16 @@
             android:label="@string/title_activity_add_game"
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+=======
+            android:windowSoftInputMode="adjustResize"
+            android:label="@string/title_activity_update"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddGame"
+            android:label="@string/title_activity_add_game"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+>>>>>>> 345e448ce1afff3d30f3d38d154ee7d101a44127
     </application>
 
 </manifest>
