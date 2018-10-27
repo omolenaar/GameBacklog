@@ -9,13 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
+
+import java.util.Arrays;
+
+import static java.util.Arrays.asList;
 
 public class UpdateActivity extends AppCompatActivity {
 
     EditText titleInput;
-    EditText statusInput;
     EditText platformInput;
     EditText notesInput;
+    Spinner statusInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,20 +32,23 @@ public class UpdateActivity extends AppCompatActivity {
         titleInput = findViewById(R.id.editTitle);
         platformInput = findViewById(R.id.editPlatform);
         notesInput = findViewById(R.id.editNotes);
-        statusInput = findViewById(R.id.editStatus);
+        statusInput = findViewById(R.id.statusSpinner2);
 
         Bundle data = getIntent().getExtras();
         final int index = data.getInt("Index");
+        int position;
 
         if (data != null) {
             Game inputGame = (Game) data.getParcelable("Game");
+            String[] statusus= getResources().getStringArray(R.array.statusNames);
+            position = Arrays.asList(statusus).indexOf(inputGame.getStatus());
 
             if (inputGame != null) {
                 //set text in EditText boxes ; the values of the game that came with the Intent
                 titleInput.setText(inputGame.getTitle());
                 platformInput.setText(inputGame.getPlatform());
                 notesInput.setText(inputGame.getNotes());
-                statusInput.setText(inputGame.getStatus());
+                statusInput.setSelection(position);
             }
         }
 
@@ -53,7 +61,7 @@ public class UpdateActivity extends AppCompatActivity {
                 updateGame.setTitle(titleInput.getText().toString());
                 updateGame.setPlatform(platformInput.getText().toString());
                 updateGame.setNotes(notesInput.getText().toString());
-                updateGame.setStatus(statusInput.getText().toString());
+                updateGame.setStatus(String.valueOf(statusInput.getSelectedItem()));
 
                 Intent result = new Intent();
                 //Put game object as extra in Intent
