@@ -66,8 +66,9 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
                         int position = (viewHolder.getAdapterPosition());
                         //db.gameDao().deleteGames(mGames.get(position));
                         mGames.remove(position);
-                        //mAdapter.notifyItemRemoved(position);
-                        mAdapter.notifyItemRangeRemoved(position, 1);
+                        mAdapter.notifyItemRemoved(position);
+                        updateUI();
+                        //mAdapter.notifyItemRangeRemoved(position, 1);
                     }
                 };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);

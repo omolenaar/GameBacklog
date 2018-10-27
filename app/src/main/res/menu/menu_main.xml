@@ -1,11 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-<<<<<<< HEAD
     tools:context="olgam.example.com.gamebacklog.MainActivity">
-=======
-    tools:context="com.example.olgam.gamebacklog.MainActivity">
->>>>>>> 345e448ce1afff3d30f3d38d154ee7d101a44127
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
