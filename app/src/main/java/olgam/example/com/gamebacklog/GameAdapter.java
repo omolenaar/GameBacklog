@@ -86,4 +86,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewHolder> 
         else
             return games.size();
     }
+    public void swapList(ArrayList<Game> newList) {
+        games = newList;
+        if (newList != null) {
+            // Force the RecyclerView to refresh
+            this.notifyDataSetChanged();
+        }
+    }
 }
+

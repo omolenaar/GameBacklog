@@ -38,26 +38,20 @@ public class UpdateActivity extends AppCompatActivity {
         final int index = data.getInt("Index");
         int position;
 
-        if (data != null) {
-            Game inputGame = (Game) data.getParcelable("Game");
-            String[] statusus= getResources().getStringArray(R.array.statusNames);
-            position = Arrays.asList(statusus).indexOf(inputGame.getStatus());
+        final Game updateGame = (Game) data.getParcelable("Game");
+        String[] statusus= getResources().getStringArray(R.array.statusNames);
+        position = Arrays.asList(statusus).indexOf(updateGame.getStatus());
 
-            if (inputGame != null) {
-                //set text in EditText boxes ; the values of the game that came with the Intent
-                titleInput.setText(inputGame.getTitle());
-                platformInput.setText(inputGame.getPlatform());
-                notesInput.setText(inputGame.getNotes());
-                statusInput.setSelection(position);
-            }
-        }
+        titleInput.setText(updateGame.getTitle());
+        platformInput.setText(updateGame.getPlatform());
+        notesInput.setText(updateGame.getNotes());
+        statusInput.setSelection(position);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //set values entered by user
-                Game updateGame = new Game("","","","", "");
                 updateGame.setTitle(titleInput.getText().toString());
                 updateGame.setPlatform(platformInput.getText().toString());
                 updateGame.setNotes(notesInput.getText().toString());
