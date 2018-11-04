@@ -1,6 +1,5 @@
 package olgam.example.com.gamebacklog;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +22,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewHolder> 
     final private GameClickListener mGameClickListener;
 
 
-    public GameAdapter(ArrayList<Game> games, Context context, GameClickListener mGameClickListener) {
+    public GameAdapter(ArrayList<Game> games, GameClickListener mGameClickListener) {
         this.games = games;
         this.mGameClickListener = mGameClickListener;
     }
@@ -39,12 +38,12 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewHolder> 
 
         MyViewHolder(final View itemView){
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cardView);
+            cv = itemView.findViewById(R.id.cardView);
             title = itemView.findViewById(R.id.title);
             platform = itemView.findViewById(R.id.platform);
             date = itemView.findViewById(R.id.dateView);
             status = itemView.findViewById(R.id.status);
-            main = (LinearLayout) itemView.findViewById(R.id.main);
+            main = itemView.findViewById(R.id.main);
             main.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {

@@ -12,6 +12,5 @@
     <string name="hintTitle">Title</string>
     <string name="hintPlatform">Platform</string>
     <string name="hintNotes">Notes</string>
-    <string name="hintStatus">Status</string>
 
 </resources>

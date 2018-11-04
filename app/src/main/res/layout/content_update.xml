@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Title" />
+            android:hint="@string/hintTitle" />
 
         <EditText
             android:id="@+id/editPlatform"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Platform"
+            android:hint="@string/hintPlatform"
             app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
         <EditText
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="Notes"
+            android:hint="@string/hintNotes"
             app:layout_constraintTop_toBottomOf="@+id/editPlatform" />
 
         <Spinner

@@ -36,8 +36,8 @@ public class UpdateActivity extends AppCompatActivity {
         int position;
 
         final Game updateGame = (Game) data.getParcelable("Game");
-        String[] statusus= getResources().getStringArray(R.array.statusNames);
-        position = Arrays.asList(statusus).indexOf(updateGame.getStatus());
+        String[] statuses= getResources().getStringArray(R.array.statusNames);
+        position = Arrays.asList(statuses).indexOf(updateGame.getStatus());
 
         titleInput.setText(updateGame.getTitle());
         platformInput.setText(updateGame.getPlatform());

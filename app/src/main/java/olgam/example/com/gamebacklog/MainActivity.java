@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager((mLayoutManager));
 
-        final GameAdapter mAdapter = new GameAdapter(mGames, this, this);
+        final GameAdapter mAdapter = new GameAdapter(mGames, this);
         mRecyclerView.setAdapter(mAdapter);
 
         mGames = new ArrayList<>();
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
-                    public boolean onMove(@NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder
                             target) {
                         return false;
                     }
@@ -144,16 +144,16 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
             db.gameDao().insertGames(new1);
             Game new2 = new Game("Rogue Squadron", "PC", "Playing", "Best Star Wars game ever", "20-12-1998");
             db.gameDao().insertGames(new2);
-            Game new3 = new Game("Fortnite", "PC, Mobile", "Want to play", "No idea", "1-11-2017");
+            Game new3 = new Game("FortNite", "PC, Mobile", "Want to play", "No idea", "1-11-2017");
             db.gameDao().insertGames(new3);
-            Game new4 = new Game("World of Warcraft", "PC", "Playing", "Addictive", "20-4-2012");
+            Game new4 = new Game("World of WarCraft", "PC", "Playing", "Addictive", "20-4-2012");
             db.gameDao().insertGames(new4);
         }
     }
 
     private void updateUI() {
         if (mAdapter == null) {
-            mAdapter = new GameAdapter(mGames, this, this);
+            mAdapter = new GameAdapter(mGames, this);
             mRecyclerView.setAdapter(mAdapter);
         }
         mAdapter.swapList(mGames);
@@ -167,9 +167,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
     }
     private void updateGame(Intent result) {
         Bundle data = result.getExtras();
-        Integer i = data.getInt("Index");
         Game newValues = data.getParcelable("Game");
-        //mGames.set(i,newValues);
         new GameAsyncTask(TASK_UPDATE_GAME).execute(newValues);
     }
 
