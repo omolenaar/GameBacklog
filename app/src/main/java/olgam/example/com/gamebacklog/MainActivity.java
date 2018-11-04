@@ -17,10 +17,6 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import static olgam.example.com.gamebacklog.MainActivity.TASK_DELETE_ALL;
-import static olgam.example.com.gamebacklog.MainActivity.TASK_DELETE_GAME;
-import static olgam.example.com.gamebacklog.MainActivity.db;
-
 public class MainActivity extends AppCompatActivity implements GameAdapter.GameClickListener {
 
     private ArrayList<Game> mGames;
