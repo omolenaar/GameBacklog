@@ -4,18 +4,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewHolder> {
 
@@ -25,26 +20,24 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewHolder> 
 
     //fields
     private ArrayList<Game> games;
-    Context context;
     final private GameClickListener mGameClickListener;
 
 
     public GameAdapter(ArrayList<Game> games, Context context, GameClickListener mGameClickListener) {
         this.games = games;
-        this.context = context;
         this.mGameClickListener = mGameClickListener;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
-        public TextView title;
-        public TextView platform;
-        public TextView status;
-        public TextView date;
+        final CardView cv;
+        final TextView title;
+        final TextView platform;
+        final TextView status;
+        final TextView date;
         public View view;
-        private LinearLayout main;
+        private final LinearLayout main;
 
-        public MyViewHolder(final View itemView){
+        MyViewHolder(final View itemView){
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cardView);
             title = itemView.findViewById(R.id.title);

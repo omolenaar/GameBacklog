@@ -14,7 +14,7 @@ public abstract  class AppDatabase extends RoomDatabase {
     //Static instance
     private static AppDatabase sInstance;
 
-    protected static AppDatabase getInstance(Context context) {
+    static AppDatabase getInstance(Context context) {
         if (sInstance == null) {
             sInstance = Room.databaseBuilder(context, AppDatabase.class, NAME_DATABASE).allowMainThreadQueries().build();
         }

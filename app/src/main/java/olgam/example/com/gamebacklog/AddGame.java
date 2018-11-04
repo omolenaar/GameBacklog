@@ -15,16 +15,16 @@ import java.util.Date;
 import java.util.Locale;
 
 public class AddGame extends AppCompatActivity {
-    EditText titleNew;
-    EditText platformNew;
-    EditText notesNew;
-    Spinner statusNew;
+    private EditText titleNew;
+    private EditText platformNew;
+    private EditText notesNew;
+    private Spinner statusNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_game);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         titleNew = findViewById(R.id.editTitle);
@@ -33,7 +33,7 @@ public class AddGame extends AppCompatActivity {
         //statusNew = findViewById(R.id.editStatus);
         statusNew = findViewById(R.id.statusSpinner1);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

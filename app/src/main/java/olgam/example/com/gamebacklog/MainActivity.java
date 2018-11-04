@@ -3,6 +3,7 @@ package olgam.example.com.gamebacklog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,26 +21,25 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements GameAdapter.GameClickListener {
 
     private ArrayList<Game> mGames;
-    private ArrayList<Game> tmp;
     private RecyclerView mRecyclerView;
     private GameAdapter mAdapter;
 
-    public final static int TASK_GET_ALL_GAMES = 0;
-    public final static int TASK_DELETE_GAME = 1;
-    public final static int TASK_DELETE_ALL = 2;
-    public final static int TASK_UPDATE_GAME = 3;
-    public final static int TASK_INSERT_GAME = 4;
+    private final static int TASK_GET_ALL_GAMES = 0;
+    private final static int TASK_DELETE_GAME = 1;
+    private final static int TASK_DELETE_ALL = 2;
+    private final static int TASK_UPDATE_GAME = 3;
+    private final static int TASK_INSERT_GAME = 4;
 
-    public final static int UPDATE_REQUEST_CODE = 1111;
-    public final static int ADD_REQUEST_CODE = 2222;
+    private final static int UPDATE_REQUEST_CODE = 1111;
+    private final static int ADD_REQUEST_CODE = 2222;
 
-    static AppDatabase db;
+    private static AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         db = AppDatabase.getInstance(this);
@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         final GameAdapter mAdapter = new GameAdapter(mGames, this, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        mGames = new ArrayList<Game>();
+        mGames = new ArrayList<>();
         initializeData();
         new GameAsyncTask(TASK_GET_ALL_GAMES).execute();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
-                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder
+                    public boolean onMove(@NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder
                             target) {
                         return false;
                     }
@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
     //UPDATE
     public void gameOnClick (int i) {
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
-        Log.e("MAIN", "mGames title = "+mGames.get(i).getTitle().toString());
         Game mGame = mGames.get(i);
         Bundle extras = new Bundle();
         extras.putParcelable("Game", mGame);
@@ -163,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
 
     private void addGame(Intent result){
         Bundle data = result.getExtras();
-        Game newGame = (Game) data.getParcelable("Game");
+        Game newGame = data.getParcelable("Game");
         new GameAsyncTask(TASK_INSERT_GAME).execute(newGame);
     }
     private void updateGame(Intent result) {
@@ -174,11 +173,11 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         new GameAsyncTask(TASK_UPDATE_GAME).execute(newValues);
     }
 
-    public class GameAsyncTask extends AsyncTask<Game, Void, List> {
+    class GameAsyncTask extends AsyncTask<Game, Void, List> {
 
-        private int taskCode;
+        private final int taskCode;
 
-        public GameAsyncTask(int taskCode) {
+        GameAsyncTask(int taskCode) {
             this.taskCode = taskCode;
         }
         @Override
@@ -207,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
             onGameDbUpdated(list);
         }
     }
-    public void onGameDbUpdated(List list) {
+    private void onGameDbUpdated(List list) {
         mGames = (ArrayList<Game>) list;
         updateUI();
     }

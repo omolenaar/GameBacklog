@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,14 +12,12 @@ import android.widget.Spinner;
 
 import java.util.Arrays;
 
-import static java.util.Arrays.asList;
-
 public class UpdateActivity extends AppCompatActivity {
 
-    EditText titleInput;
-    EditText platformInput;
-    EditText notesInput;
-    Spinner statusInput;
+    private EditText titleInput;
+    private EditText platformInput;
+    private EditText notesInput;
+    private Spinner statusInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
