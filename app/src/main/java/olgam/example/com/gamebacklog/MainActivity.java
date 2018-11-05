@@ -198,12 +198,12 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
             return db.gameDao().getAllGames();
         }
 
-        protected void onPostExecute(ArrayList list) {
+        protected void onPostExecute(List list) {
             super.onPostExecute(list);
             onGameDbUpdated(list);
         }
     }
-    private void onGameDbUpdated(ArrayList list) {
+    private void onGameDbUpdated(List list) {
         mGames = (ArrayList<Game>) list;
         updateUI();
     }
