@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
                     @Override
-                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder
                             target) {
                         return false;
                     }
@@ -159,12 +159,12 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
         mAdapter.swapList(mGames);
     }
 
-
     private void addGame(Intent result){
         Bundle data = result.getExtras();
         Game newGame = data.getParcelable("Game");
         new GameAsyncTask(TASK_INSERT_GAME).execute(newGame);
     }
+
     private void updateGame(Intent result) {
         Bundle data = result.getExtras();
         Game newValues = data.getParcelable("Game");
@@ -198,13 +198,12 @@ public class MainActivity extends AppCompatActivity implements GameAdapter.GameC
             return db.gameDao().getAllGames();
         }
 
-        @Override
-        protected void onPostExecute(List list) {
+        protected void onPostExecute(ArrayList list) {
             super.onPostExecute(list);
             onGameDbUpdated(list);
         }
     }
-    private void onGameDbUpdated(List list) {
+    private void onGameDbUpdated(ArrayList list) {
         mGames = (ArrayList<Game>) list;
         updateUI();
     }

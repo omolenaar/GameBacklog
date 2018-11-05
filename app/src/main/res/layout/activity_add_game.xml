@@ -65,7 +65,8 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:hint="@string/hintTitle" />
+                    android:hint="@string/hintTitle"
+                    tools:ignore="Autofill" />
 
                 <EditText
                     android:id="@+id/editPlatform"
@@ -74,7 +75,8 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:hint="@string/hintPlatform"
-                    app:layout_constraintTop_toBottomOf="@+id/editTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/editTitle"
+                    tools:ignore="Autofill" />
 
                 <EditText
                     android:id="@+id/editNotes"
@@ -83,7 +85,8 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:hint="@string/hintNotes"
-                    app:layout_constraintTop_toBottomOf="@+id/editPlatform" />
+                    app:layout_constraintTop_toBottomOf="@+id/editPlatform"
+                    tools:ignore="Autofill" />
 
                 <Spinner
                     android:id="@+id/statusSpinner1"

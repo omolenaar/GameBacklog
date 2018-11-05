@@ -21,19 +21,17 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewHolder> 
     private ArrayList<Game> games;
     final private GameClickListener mGameClickListener;
 
-
-    public GameAdapter(ArrayList<Game> games, GameClickListener mGameClickListener) {
+    GameAdapter(ArrayList<Game> games, GameClickListener mGameClickListener) {
         this.games = games;
         this.mGameClickListener = mGameClickListener;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         final CardView cv;
         final TextView title;
         final TextView platform;
         final TextView status;
         final TextView date;
-        public View view;
         private final LinearLayout main;
 
         MyViewHolder(final View itemView){
@@ -77,7 +75,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.MyViewHolder> 
         else
             return games.size();
     }
-    public void swapList(ArrayList<Game> newList) {
+
+    void swapList(ArrayList<Game> newList) {
         games = newList;
         if (newList != null) {
             // Force the RecyclerView to refresh
